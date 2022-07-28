@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: #explains what you're doing
+  name: eks-group1-linux-deployment
+  namespace: eks-group1-app
+  labels:
+    app: eks-group1-linux-app
+spec: #specifications for (metadata) what your deployment includes and how many replicas it has
+  replicas: 3
+  selector:
+    matchLabels:
+      app: eks-group1-linux-app
+  template:
+    metadata:
+      labels: # labels to select/identify the deployment
+        app: eks-group1-linux-app
+    spec: # pod spec
+      containers:
+        - name: group1-container
+          image: group1-image # image we pushed
+          ports:
+            - containerPort: 5000
+
+  # template:
+  #   metadata:
+  #     labels:
+  #       app: eks-group1-linux-app
+  #   spec:
+  #     affinity:
+  #       nodeAffinity:
+  #         requiredDuringSchedulingIgnoredDuringExecution:
+  #           nodeSelectorTerms:
+  #             - matchExpressions:
+  #                 - key: kubernetes.io/arch
+  #                   operator: In
+  #                   values:
+  #                     - amd64
+  #                     - arm64
+  #     containers:
+  #       - name: nginx
+  #         image: public.ecr.aws/nginx/nginx:1.21
+  #         ports:
+  #           - name: http
+  #             containerPort: 80
+  #         imagePullPolicy: IfNotPresent
+  #     nodeSelector:
+  #       kubernetes.io/os: linux

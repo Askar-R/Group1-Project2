@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: group1-lb-service
+spec:
+  selector:
+    app: eks-group1-linux-app
+  ports:
+    - port: 5000
+      targetPort: 5000
+  type: LoadBalancer
