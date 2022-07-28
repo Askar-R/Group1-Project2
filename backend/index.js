@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:5000/getAll")
+  fetch(
+    "http://ab792b8bd180d48e7af4d7491bc19dfa-114735916.us-east-1.elb.amazonaws.com:5000/getAll"
+  )
     .then((response) => response.json())
     .then((data) => loadHTMLTable(data["data"]));
 });
@@ -21,15 +23,22 @@ const searchBtn = document.querySelector("#search-btn");
 searchBtn.onclick = function () {
   const searchValue = document.querySelector("#search-input").value;
 
-  fetch("http://localhost:5000/search/" + searchValue)
+  fetch(
+    "http://ab792b8bd180d48e7af4d7491bc19dfa-114735916.us-east-1.elb.amazonaws.com:5000/search/" +
+      searchValue
+  )
     .then((response) => response.json())
     .then((data) => loadHTMLTable(data["data"]));
 };
 
 function deleteRowById(id) {
-  fetch("http://localhost:5000/delete/" + id, {
-    method: "DELETE",
-  })
+  fetch(
+    "http://ab792b8bd180d48e7af4d7491bc19dfa-114735916.us-east-1.elb.amazonaws.com:5000/delete/" +
+      id,
+    {
+      method: "DELETE",
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
       if (data) {
@@ -49,15 +58,19 @@ updateBtn.onclick = function () {
 
   console.log(updateNameInput);
 
-  fetch("http://localhost:5000/update/" + updateNameInput.dataset.id, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({
-      name: updateNameInput.value,
-    }),
-  })
+  fetch(
+    "http://ab792b8bd180d48e7af4d7491bc19dfa-114735916.us-east-1.elb.amazonaws.com:5000/update/" +
+      updateNameInput.dataset.id,
+    {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        name: updateNameInput.value,
+      }),
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
       location.reload();
@@ -71,13 +84,16 @@ addBtn.onclick = function () {
   const name = nameInput.value;
   nameInput.value = "";
 
-  fetch("http://localhost:5000/insert", {
-    headers: {
-      "Content-type": "application/json",
-    },
-    method: "POST",
-    body: JSON.stringify({ name: name }),
-  })
+  fetch(
+    "http://ab792b8bd180d48e7af4d7491bc19dfa-114735916.us-east-1.elb.amazonaws.com:5000/insert",
+    {
+      headers: {
+        "Content-type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ name: name }),
+    }
+  )
     .then((response) => response.json())
     .then((data) => insertRowIntoTable(data["data"]));
 };

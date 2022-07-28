@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata: #explains what you're doing
   name: eks-group1-linux-deployment
-  namespace: eks-group1-app
   labels:
     app: eks-group1-linux-app
 spec: #specifications for (metadata) what your deployment includes and how many replicas it has
@@ -17,7 +16,7 @@ spec: #specifications for (metadata) what your deployment includes and how many 
     spec: # pod spec
       containers:
         - name: group1-container
-          image: group1-image # image we pushed
+          image: 235920682125.dkr.ecr.us-east-1.amazonaws.com/group1-repository:latest # image we pushed
           ports:
             - containerPort: 5000
 
